@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Landing Page</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Use Firebase version 8 -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js"></script>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+</head>
+<body>
+  <header>
+    <h1>Welcome to Our Site</h1>
+  </header>
+
+  <main>
+    <section class="signup-options">
+      <h2>Sign up using:</h2>
+      <div class="auth-buttons">
+        <button class="github-auth">Sign up with GitHub</button>
+        <button class="linkedin-auth">Sign up with LinkedIn</button>
+        <button id="google-auth">Sign up with Google</button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+	import { getDatabase } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+	import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+    // Your Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyDWJFTfA4F42kQ46kE70XNpiBf_FOWse48",
+      authDomain: "authentication-9cc44.firebaseapp.com",
+      databaseURL: "https://authentication-9cc44-default-rtdb.firebaseio.com",
+      projectId: "authentication-9cc44",
+      storageBucket: "authentication-9cc44.appspot.com",
+      messagingSenderId: "150936902638",
+      appId: "1:150936902638:web:d0e0aef2030a023f3b4cff"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // Function to handle GitHub authentication
+    const handleGitHubAuth = () => {
+      const provider = new firebase.auth.GithubAuthProvider();
+      auth.signInWithPopup(provider);
+    };
+
+    // Function to handle LinkedIn authentication
+    const handleLinkedInAuth = () => {
+      const provider = new firebase.auth.OAuthProvider('linkedin.com');
+      auth.signInWithPopup(provider);
+    };
+
+    // Function to handle Google authentication
+    const handleGoogleAuth = () => {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      auth.signInWithPopup(provider);
+    };
+
+    // Attach event listeners to the buttons
+    document.querySelector('.github-auth').addEventListener('click', handleGitHubAuth);
+    document.querySelector('.linkedin-auth').addEventListener('click', handleLinkedInAuth);
+    document.querySelector('.google-auth').addEventListener('click', handleGoogleAuth);
+  </script>
+</body>
+</html>
